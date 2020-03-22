@@ -1,0 +1,108 @@
+
+.card {
+  position: fixed !important;
+  display: inline-block;
+  left: 50%;
+  top: 50%;
+  width: 4.5rem;
+  height: 6rem;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+  cursor: pointer !important;
+  transition: transform 0.1s ease-out !important;
+
+  &:hover {
+    transform: translate(0, -20px) !important;
+  }
+}
+
+#hand {
+  height: 250px;
+  padding: 30px;
+
+  .card {
+    position: unset !important;
+    display: inline-block;
+    margin-right: 10px;
+    margin-top: 15px;
+    transform: translate(0, 0) !important;
+
+    &:hover {
+      transform: translate(0, -10px) !important;
+      filter: drop-shadow(1px 1px 1px #292929);
+    }
+
+    &.active {
+      transform: translate(0, -20px) !important;
+      filter: drop-shadow(2px 2px 5px #292929);
+    }
+  }
+}
+
+#prev-play-area {
+
+  .card {
+    position: unset !important;
+    display: inline-block;
+    margin-right: 10px;
+    transform: translate(0, 0) !important;
+
+    &:hover {
+      transform: translate(0, -10px) !important;
+      filter: drop-shadow(1px 1px 1px #292929);
+    }
+
+    &.active {
+      transform: translate(0, -20px) !important;
+      filter: drop-shadow(2px 2px 5px #292929);
+    }
+  }
+}
+
+#play-area {
+  pointer-events: none;
+
+  .card {
+    position: unset !important;
+    display: inline-block;
+    margin-right: 10px;
+    transform: translate(0, 0) !important;
+  }
+}
+
+#joker {
+  pointer-events: none;
+
+  .card {
+    position: absolute !important;
+    left: 35%;
+    top: 15%;
+  }
+}
+
+#deck {
+  .card {
+    position: absolute !important;
+    left: 35%;
+    top: 15%;
+
+    &:hover {
+      transform: translate(0, -10px) !important;
+      filter: drop-shadow(1px 1px 1px #292929);
+    }
+
+    &.active {
+      transform: translate(0, -20px) !important;
+      filter: drop-shadow(2px 2px 5px #292929);
+    }
+  }
+}
+
+#archive {
+  .card {
+    position: absolute !important;
+    left: 35%;
+    top: 15%;
+  }
+}
