@@ -34,7 +34,8 @@ class App extends Component {
             error: false,
             showPlayBtn: true,
             showDrawBtn: false,
-            activePlayer: null
+            activePlayer: null,
+            previousPlayer: null
         };
     }
 
@@ -52,7 +53,7 @@ class App extends Component {
         }
     }
 
-    onError() {
+    onError(err) {
         this.setState({
             error: true
         });
@@ -81,6 +82,7 @@ class App extends Component {
     }
 
     onGameStateChanged(state) {
+        console.log(state);
         this.gameObj.updateState(state);
         this.setState({
             users: state.users,
@@ -89,7 +91,8 @@ class App extends Component {
             error: false,
             showDrawBtn: state.activePlayDeck.length > 0,
             showPlayBtn: state.activePlayDeck.length <= 0,
-            activePlayer: state.activePlayer
+            activePlayer: state.activePlayer,
+            previousPlayer: state.previousPlayer
         });
         if (state.deck.length > 0) {
             this.gameObj.render(this.state.currentUser.id);
@@ -129,12 +132,20 @@ class App extends Component {
             <div className='flex mb-4 flex-col'>
                 <div className="w-full bg-green-900 h-10 flex justify-between" id='top-nav'>
                     <div className='text-white text-left p-2'>Least Count (Beta)</div>
-                    <div className='text-white p-2 text-right'>Hi {this.state.currentUser?.username.toUpperCase()}</div>
+                    <div className='text-white p-2 text-right'>
+                        Hi {this.state.currentUser?.username.toUpperCase()}
+                    </div>
                 </div>
                 <div className='flex h-screen w-full'>
                     <GameArea hasGameStarted={this.state.isActive}
                               hasDeck={this.state.hasDeck}
+                              previousPlayer={this.state.previousPlayer}
+                              showDrawBtn={this.state.showDrawBtn}
+                              showPlayBtn={this.state.showPlayBtn}
                               canPlay={canPlay}
+                              users={this.state.users}
+                              activePlayer={this.state.activePlayer}
+                              currentUser={this.state.currentUser}
                               startGameHandler={this.startGame}/>
                     <div className='bg-green-500 w-1/5 flex flex-col'>
                         <UserList

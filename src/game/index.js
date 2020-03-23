@@ -110,7 +110,7 @@ function game(network) {
         let newState = clone(state);
         const activeHandCards = cards.getActiveHandCards();
 
-        if (activeHandCards.length === 2) {
+        if (activeHandCards.length === 2 || activeHandCards.length <= 0) {
             // Minimum 3 cards should be a set.
             return false;
         }
@@ -126,7 +126,6 @@ function game(network) {
         }
 
         let currentUser = newState.users.find(u => u.id === currentUserId);
-
         const prevPlayedCards = cards.getCardObjects(state.previousPlayDeck);
 
         const cardsWithoutJoker = activeCardObjects.filter(card => card.suit !== 4 && card.rank !== jokerValue);
@@ -150,9 +149,15 @@ function game(network) {
     }
 
     function draw(currentUserId) {
+        const drawableCard = cards.getDrawableCard();
+        console.log(drawableCard);
+        if (!drawableCard) {
+            return;
+        }
+
         let newState = clone(state);
         const currentUser = newState.users.find(u => u.id === currentUserId);
-        const drawableCard = cards.getDrawableCard();
+
         currentUser.hand.push(drawableCard);
         newState.previousPlayDeck = clone(state.activePlayDeck);
         newState.activePlayDeck = [];

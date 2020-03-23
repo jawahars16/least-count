@@ -31,6 +31,29 @@ class GameArea extends Component {
             )
         }
 
+        let playAreaMessage = 'Play area';
+        const currentUserName = this.props.users?.find(u => u.id === this.props.activePlayer)?.username;
+
+        if (this.props.showPlayBtn) {
+            if (this.props.canPlay) {
+                playAreaMessage = 'You have to play';
+            } else {
+                playAreaMessage = `${currentUserName} has to play`;
+            }
+        } else {
+            if (this.props.canPlay) {
+                playAreaMessage = 'You played below card(s)';
+            } else {
+                playAreaMessage = `${currentUserName} played below card(s)`;
+            }
+        }
+
+        let previousPlayMessage = 'Last card(s)';
+        const previousUserName = this.props.users?.find(u => u.id === this.props.previousPlayer)?.username;
+        if (previousUserName) {
+            previousPlayMessage = `${previousUserName} played below card(s)`
+        }
+
         return (
             <div
                 className={`bg-green-600 w-4/5 flex flex-col h-screen justify-between content-between 
@@ -38,9 +61,9 @@ class GameArea extends Component {
                 id='game-area'>
                 <div className='flex flex-1'>
                     <div className='w-4/5 flex flex-col ml-5'>
-                        <div className='mt-3 text-white'>Last card(s)</div>
+                        <div className='mt-3 text-white'>{previousPlayMessage}</div>
                         <div className='w-full flex flex-1 flex-row items-center' id='prev-play-area'/>
-                        <div className='mt-3 text-white'>You played below card(s)</div>
+                        <div className='mt-3 text-white'>{playAreaMessage}</div>
                         <div className='w-full flex flex-1 flex-row items-center' id='play-area'/>
                     </div>
                     <div className='w-1/5 flex flex-col'>

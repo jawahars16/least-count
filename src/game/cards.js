@@ -12,6 +12,8 @@ function cards() {
     let previousPlayerCards;
 
     function onCardClick(e) {
+        $('#prev-play-area .card').not(e.currentTarget).removeClass('active');
+        $('#deck .card').not(e.currentTarget).removeClass('active');
         e.currentTarget.classList.toggle('active');
     }
 
@@ -62,7 +64,9 @@ function cards() {
         previousPlayerCards.forEach(previousPlayerCard => {
             previousPlayerCard.setSide('front');
             previousPlayerCard.$el.setAttribute('data-id', previousPlayerCard.i);
-            $(previousPlayerCard.$el).off('click', onCardClick).on('click', onCardClick);
+            $(previousPlayerCard.$el)
+                .off('click', onCardClick)
+                .on('click', onCardClick);
         });
     }
 
@@ -79,7 +83,9 @@ function cards() {
         deckCards.forEach(deckCard => {
             deckCard.setSide('back');
             deckCard.$el.setAttribute('data-id', deckCard.i);
-            $(deckCard.$el).off('click', onCardClick).on('click', onCardClick);
+            $(deckCard.$el)
+                .off('click', onCardClick)
+                .on('click', onCardClick);
         });
     }
 
@@ -122,7 +128,7 @@ function cards() {
     function clearDrawableCard() {
         drawableCard = null;
     }
-    
+
     function getJokerValue(jokerId) {
         return deck.cards.find(card => card.i === jokerId).rank;
     }

@@ -9,7 +9,8 @@ function game(io) {
         activePlayDeck: [],
         previousPlayDeck: [],
         isActive: false,
-        activePlayer: null
+        activePlayer: null,
+        previousPlayer: null
     };
 
     function newClient(client) {
@@ -25,8 +26,6 @@ function game(io) {
     }
 
     function assignNextPlayer() {
-        console.log(state.deck.length)
-        console.log(state.activePlayDeck.length)
         if (state.deck.length > 0 && state.activePlayDeck.length <= 0) {
             let nextPlayer = null;
             let orderPointer = 0;
@@ -40,7 +39,7 @@ function game(io) {
                 orderPointer += 1;
                 nextPlayer = state.users.find(u => u.order === orderPointer);
 
-                if (orderPointer === state.users.length) {
+                if (orderPointer >= state.users.length) {
                     orderPointer = 0;
                 }
             }
@@ -49,8 +48,10 @@ function game(io) {
                 nextPlayer = activePlayer;
             }
 
+            state.previousPlayer = state.activePlayer && state.activePlayer.toString();
             state.activePlayer = nextPlayer.id;
             console.log(`Active player - ${state.activePlayer}`);
+            console.log(`Previous player - ${state.previousPLayer}`);
         }
     }
 

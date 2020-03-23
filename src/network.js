@@ -9,14 +9,10 @@ function network() {
         let endPoint = '/';
 
         if (document.location.origin.includes('localhost')) {
-            endPoint = 'http://localhost:3003';
+            endPoint = 'http://localhost:3000';
         }
 
-        socket = client(endPoint, {
-            'reconnection': true,
-            'reconnectionDelay': 500,
-            'reconnectionAttempts': 5
-        });
+        socket = client(endPoint);
         socket.on('game-state', gameStateUpdated);
         socket.on('connect_error', errorHandler);
     }
