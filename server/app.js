@@ -4,7 +4,7 @@ const http = require('http').createServer(app);
 const socketio = require('socket.io');
 const path = require('path');
 
-const port = 3003;
+const port = process.env.PORT || 3000;
 
 console.log(`Server started at ${port}`);
 
