@@ -10,12 +10,6 @@ function cards() {
     let deckCards;
     let activeCards;
     let previousPlayerCards;
-    let handCardClickHandler;
-    let prevPlayCardClickHandler;
-    let deckCardClickHandler;
-    let handCardSubscribed = false;
-    let prevPlayCardSubscribed = false;
-    let deckCardSubscribed = false;
 
     function onCardClick(e) {
         e.currentTarget.classList.toggle('active');
@@ -59,7 +53,6 @@ function cards() {
             handCard.$el.setAttribute('data-id', handCard.i);
             $(handCard.$el).off('click', onCardClick).on('click', onCardClick);
         });
-        handCardSubscribed = true;
     }
 
     function mountPreviousPlayerCards(deck, state) {
@@ -71,7 +64,6 @@ function cards() {
             previousPlayerCard.$el.setAttribute('data-id', previousPlayerCard.i);
             $(previousPlayerCard.$el).off('click', onCardClick).on('click', onCardClick);
         });
-        prevPlayCardSubscribed = true;
     }
 
     function mountJoker(deck, state) {
@@ -89,7 +81,6 @@ function cards() {
             deckCard.$el.setAttribute('data-id', deckCard.i);
             $(deckCard.$el).off('click', onCardClick).on('click', onCardClick);
         });
-        deckCardSubscribed = true;
     }
 
     function mountPlayCards(deck, state) {
@@ -97,7 +88,6 @@ function cards() {
         mountCards(activeCards, options.playAreaContainerId);
         activeCards.forEach(activeCard => {
             activeCard.setSide('front');
-            // activeCard.$el.removeEventListener('click', handCardClickHandler, false);
         });
     }
 
@@ -144,7 +134,6 @@ function cards() {
         mountHandCards,
         mountJoker,
         mountPlayCards,
-        handCards,
         unmountAllCards,
         getActiveHandCards,
         setAllHandCardsInactive,

@@ -5,7 +5,14 @@ function network() {
     let socket;
 
     function initialize(gameStateUpdated, errorHandler) {
-        socket = client(`/`, {
+
+        let endPoint = '/';
+
+        if (document.location.origin.includes('localhost')) {
+            endPoint = 'http://localhost:3003';
+        }
+
+        socket = client(endPoint, {
             'reconnection': true,
             'reconnectionDelay': 500,
             'reconnectionAttempts': 5

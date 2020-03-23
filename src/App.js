@@ -1,15 +1,13 @@
-import logo from './logo.svg';
 import '../node_modules/deck-of-cards/example/example.css'
 import './styles/tailwind.css';
 import './styles/app.scss';
-import socketIOClient from "socket.io-client";
 import React, {Component} from 'react';
 import game from './game';
 import network from './network';
 import UserList from "./components/user-list";
-import Provider from "./components/provider";
 import UserForm from "./components/user-form";
 import GameArea from "./components/game-area";
+import ActionPanel from "./components/action-panel";
 
 class App extends Component {
     constructor(props) {
@@ -33,7 +31,10 @@ class App extends Component {
             joinGame: this.joinGame,
             isActive: false,
             hasDeck: false,
-            error: false
+            error: false,
+            showPlayBtn: true,
+            showDrawBtn: false,
+            activePlayer: null
         };
     }
 
@@ -80,13 +81,15 @@ class App extends Component {
     }
 
     onGameStateChanged(state) {
-        console.log(state);
         this.gameObj.updateState(state);
         this.setState({
             users: state.users,
             isActive: state.isActive,
             hasDeck: state.deck.length > 0,
-            error: false
+            error: false,
+            showDrawBtn: state.activePlayDeck.length > 0,
+            showPlayBtn: state.activePlayDeck.length <= 0,
+            activePlayer: state.activePlayer
         });
         if (state.deck.length > 0) {
             this.gameObj.render(this.state.currentUser.id);
@@ -111,6 +114,9 @@ class App extends Component {
                 <div className='text-white p-2'>
                     Server not found. Trying to connect...
                 </div>
+                <div className='flex h-screen w-full'>
+                    {this.state.error}
+                </div>
             </div>);
         }
 
@@ -118,19 +124,29 @@ class App extends Component {
             return <UserForm joinGame={this.joinGame}/>;
         }
 
+        const canPlay = this.state.currentUser.id === this.state.activePlayer;
         return (
             <div className='flex mb-4 flex-col'>
-                <div className="w-full bg-green-900 h-10" id='top-nav'>
-                    <div className='text-white p-2'>{this.state.currentUser.username.toUpperCase()}</div>
+                <div className="w-full bg-green-900 h-10 flex justify-between" id='top-nav'>
+                    <div className='text-white text-left p-2'>Least Count (Beta)</div>
+                    <div className='text-white p-2 text-right'>Hi {this.state.currentUser?.username.toUpperCase()}</div>
                 </div>
                 <div className='flex h-screen w-full'>
                     <GameArea hasGameStarted={this.state.isActive}
                               hasDeck={this.state.hasDeck}
-                              startGameHandler={this.startGame}
-                              onPlayCard={this.onPlayCard}
-                              onDrawCard={this.onDrawCard}/>
-                    <div className='bg-green-500 w-1/5' id='users'>
-                        <UserList users={this.state.users}/>
+                              canPlay={canPlay}
+                              startGameHandler={this.startGame}/>
+                    <div className='bg-green-500 w-1/5 flex flex-col'>
+                        <UserList
+                            activePlayer={this.state.activePlayer}
+                            currentUser={this.state.currentUser}
+                            users={this.state.users}/>
+                        <ActionPanel
+                            canPlay={canPlay}
+                            showDrawBtn={this.state.showDrawBtn}
+                            showPlayBtn={this.state.showPlayBtn}
+                            onPlayCard={this.onPlayCard}
+                            onDrawCard={this.onDrawCard}/>
                     </div>
                 </div>
             </div>

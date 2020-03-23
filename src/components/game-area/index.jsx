@@ -32,8 +32,10 @@ class GameArea extends Component {
         }
 
         return (
-            <div className='bg-green-600 w-4/5 flex flex-col h-screen justify-between content-between'
-                 id='game-area'>
+            <div
+                className={`bg-green-600 w-4/5 flex flex-col h-screen justify-between content-between 
+                ${this.props.canPlay ? 'ready' : 'not-ready'}`}
+                id='game-area'>
                 <div className='flex flex-1'>
                     <div className='w-4/5 flex flex-col ml-5'>
                         <div className='mt-3 text-white'>Last card(s)</div>
@@ -51,17 +53,6 @@ class GameArea extends Component {
                 <hr/>
                 <div className='flex flex-row items-center'>
                     <div className='' id='hand'/>
-                    <div className='flex'>
-                        <button className='bg-blue-700 text-white p-1 px-5 mr-2 hover:bg-blue-900' onClick={this.props.onPlayCard}>
-                            Play
-                        </button>
-                        <button className='bg-blue-700 text-white p-1 px-5 mr-2 hover:bg-blue-900' onClick={this.props.onDrawCard}>
-                            Draw
-                        </button>
-                        <button className='bg-red-800 text-white p-1 px-5 hover:bg-red-900'>
-                            Show
-                        </button>
-                    </div>
                 </div>
             </div>
         );

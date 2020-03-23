@@ -49,32 +49,100 @@ function game(network) {
         return state;
     }
 
-    function checkForSet(set) {
-        const jokerValue = cards.getJokerValue(state.joker);
+    function isConsecutive(numbers) {
+        for (let i = 0; i < numbers.length; i++) {
+            const number = numbers[i];
+
+            if (i === numbers.length - 1) {
+                return true;
+            }
+
+            if (number + 1 !== numbers[i + 1]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
+    function isConsecutiveWithJokers(numbers, jokersCount) {
+        let holes = 0;
+        numbers.sort((a, b) => b - a);
+        for (let i = 0; i < numbers.length - 1; i++) {
+            const number = numbers[i];
+            holes += (number - numbers[i + 1] - 1);
+        }
+
+        return holes === jokersCount;
+    }
+
+    function checkForSet(set, jokerValue) {
         const cardsWithoutJoker = set.filter(card => card.suit !== 4 && card.rank !== jokerValue);
-        return new Set(cardsWithoutJoker.map(c => c.rank)).size === 1;
+
+        // Check for sequence set.
+        if (new Set(cardsWithoutJoker.map(c => c.rank)).size <= 1) {
+            return true;
+        }
+
+        // No sequence set
+        const sequence = cardsWithoutJoker.sort((card1, card2) => card1.rank - card2.rank);
+        if (sequence.every(card => card.suit === sequence[0].suit)) {
+
+            let numbers = sequence.map(s => s.rank);
+            if (isConsecutive(numbers)) {
+                return true;
+            }
+
+            const jokersCount = set.length - cardsWithoutJoker.length;
+            return !!isConsecutiveWithJokers(numbers, jokersCount);
+        }
+    }
+
+    function checkForMatchingCardsWithPreviousPlayedDeck(cardsWithoutJoker, prevPlayedCardsWithoutJoker) {
+        const cardsWithoutJokerRanks = cardsWithoutJoker.map(c => c.rank);
+        const prevPlayedCardsWithoutJokerRanks = prevPlayedCardsWithoutJoker.map(c => c.rank);
+
+        return cardsWithoutJokerRanks.some(card => prevPlayedCardsWithoutJokerRanks.includes(card))
     }
 
     function play(currentUserId) {
         let newState = clone(state);
         const activeHandCards = cards.getActiveHandCards();
 
-        if(activeHandCards.length === 2) {
+        if (activeHandCards.length === 2) {
             // Minimum 3 cards should be a set.
             return false;
         }
 
+        const activeCardObjects = cards.getCardObjects(activeHandCards);
+        const jokerValue = cards.getJokerValue(state.joker);
+
         if (activeHandCards.length > 2) {
-            const activeCardObjects = cards.getCardObjects(activeHandCards);
-            const isSet = checkForSet(activeCardObjects, state.joker);
+            const isSet = checkForSet(activeCardObjects, jokerValue);
             if (!isSet) {
                 return false;
             }
         }
 
-        newState.activePlayDeck = activeHandCards;
-
         let currentUser = newState.users.find(u => u.id === currentUserId);
+
+        const prevPlayedCards = cards.getCardObjects(state.previousPlayDeck);
+
+        const cardsWithoutJoker = activeCardObjects.filter(card => card.suit !== 4 && card.rank !== jokerValue);
+        const prevPlayedCardsWithoutJoker = prevPlayedCards.filter(card => card.suit !== 4 && card.rank !== jokerValue);
+
+        // If the cards played user matched with any cards played previously,
+        // then player dont have to draw new cards. 😻
+        if (checkForMatchingCardsWithPreviousPlayedDeck(cardsWithoutJoker, prevPlayedCardsWithoutJoker)) {
+            newState.previousPlayDeck = activeHandCards;
+            newState.activePlayDeck = [];
+            currentUser.hand = currentUser.hand.filter(c => !newState.previousPlayDeck.includes(c));
+        } else {
+            newState.activePlayDeck = activeHandCards;
+            currentUser.hand = currentUser.hand.filter(c => !newState.activePlayDeck.includes(c));
+        }
+
         currentUser.hand = currentUser.hand.filter(c => !newState.activePlayDeck.includes(c));
 
         updateState(newState);
@@ -91,7 +159,6 @@ function game(network) {
         newState.deck = state.deck.filter(c => c !== drawableCard);
         cards.clearDrawableCard();
         updateState(newState);
-        console.table(state.users);
         network.broadcastGameState(state);
     }
 
@@ -116,7 +183,8 @@ function game(network) {
         registerUser,
         render,
         play,
-        draw
+        draw,
+        checkForSet
     }
 }
 

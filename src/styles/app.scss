@@ -106,3 +106,14 @@
     top: 15%;
   }
 }
+
+button {
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}
+
+#game-area.not-ready, #action-panel.not-ready {
+  pointer-events: none;
+}
