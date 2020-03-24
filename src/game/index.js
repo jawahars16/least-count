@@ -10,6 +10,8 @@ function game(network) {
         previousPlayDeck: [],
         joker: null,
         isActive: false,
+        activePlayer: null,
+        previousPlayer: null
     };
     let deck;
     let cards = Cards();
@@ -21,6 +23,8 @@ function game(network) {
     function start() {
         let newState = clone(state);
         newState.isActive = true;
+        newState.activePlayer = null;
+        newState.previousPlayer = null;
         network.broadcastGameState(state);
         deck = cards.newDeck(true);
         let index = 0;
@@ -37,8 +41,25 @@ function game(network) {
         network.broadcastGameState(state);
     }
 
+    function declare() {
+        calculatePoints(state);
+        network.broadcastDeclare(state);
+    }
+
     function registerUser(user) {
         network.broadCastNewUser(user);
+    }
+
+    function calculatePoints(stateObj) {
+        const jokerValue = cards.getJokerValue(state.joker);
+        stateObj.users.forEach(user => {
+            user.points = 0;
+            if (user.hand && user.hand.length > 0) {
+                const userHandCards = cards.getCardObjects(user.hand);
+                const cardsWithoutJoker = userHandCards.filter(card => card.suit !== 4 && card.rank !== jokerValue);
+                user.points = cardsWithoutJoker.map(c => c.rank > 10 ? 10 : c.rank).reduce((c1, c2) => c1 + c2);
+            }
+        });
     }
 
     function updateState(stateObj) {
@@ -189,7 +210,8 @@ function game(network) {
         render,
         play,
         draw,
-        checkForSet
+        checkForSet,
+        declare
     }
 }
 

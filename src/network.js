@@ -4,7 +4,7 @@ function network() {
 
     let socket;
 
-    function initialize(gameStateUpdated, errorHandler) {
+    function initialize(gameStateUpdated, roundEndHandler, errorHandler) {
 
         let endPoint = '/';
 
@@ -14,6 +14,7 @@ function network() {
 
         socket = client(endPoint);
         socket.on('game-state', gameStateUpdated);
+        socket.on('round-end', roundEndHandler);
         socket.on('connect_error', errorHandler);
     }
 
@@ -25,10 +26,15 @@ function network() {
         socket.emit('game-state', state)
     }
 
+    function broadcastDeclare(state) {
+        socket.emit('declare', state)
+    }
+
     return {
         initialize,
         broadcastGameState,
-        broadCastNewUser
+        broadCastNewUser,
+        broadcastDeclare
     }
 }
 

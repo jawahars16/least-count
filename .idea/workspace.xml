@@ -5,10 +5,11 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/game.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/game-area/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/game-area/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/cards.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/cards.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/action-panel/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/action-panel/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/user-list/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user-list/index.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/network.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/network.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/app.scss" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -135,7 +136,7 @@
       <updated>1584758124397</updated>
       <workItem from="1584758125524" duration="71610000" />
       <workItem from="1584932828431" duration="5383000" />
-      <workItem from="1584948497012" duration="11738000" />
+      <workItem from="1584948497012" duration="21369000" />
     </task>
     <servers />
   </component>

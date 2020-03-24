@@ -17,7 +17,8 @@ function game(io) {
         console.log('💻 New client joined...');
 
         client.on('new-user', data => onUserJoined(data, client));
-        client.on('game-state', onGameStateUpdatedFromClient)
+        client.on('game-state', onGameStateUpdatedFromClient);
+        client.on('declare', onGameDeclare);
         client.on('disconnect', onDisconnect);
 
         if (state.deck.length > 0) {
@@ -80,8 +81,41 @@ function game(io) {
         broadCastGameState();
     }
 
+    function onGameDeclare(stateObj) {
+        state = JSON.parse(JSON.stringify(stateObj));
+
+        const activePlayer = state.users.find(u => u.id === state.activePlayer);
+        const activePlayerPoints = activePlayer.points;
+        const playersWithLessPoints = state.users.filter(user => user.id !== activePlayer.id && user.points <= activePlayerPoints);
+        console.log(activePlayerPoints)
+        console.log(playersWithLessPoints)
+        let gameResult = 'Game ended';
+
+        if (playersWithLessPoints.length > 0) {
+            state.users.forEach(user => user.score = user.points);
+            playersWithLessPoints.forEach(user => user.score = 0);
+            activePlayer.score = 70; // 🤣
+            gameResult = `
+            ${activePlayer.username} declared and lost. 😭
+            ${playersWithLessPoints.map(u => u.username).join(',')} had lesser points.`
+        } else {
+            state.users.forEach(user => user.score = user.points);
+            activePlayer.score = 0; // 🏆
+            gameResult = `🎉 ${activePlayer.username} declared and won. 🎉`
+        }
+
+        state.users.forEach(user => user.totalScore = user.totalScore || 0 + user.score)
+        state.users.sort((a, b) => a.score - b.score);
+        state.gameResult = gameResult;
+        broadCastRoundEnd();
+    }
+
     function broadCastGameState() {
         io.emit('game-state', state);
+    }
+
+    function broadCastRoundEnd() {
+        io.emit('round-end', state);
     }
 
     function onDisconnect(client) {

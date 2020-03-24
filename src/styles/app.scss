@@ -117,3 +117,27 @@ button {
 #game-area.not-ready, #action-panel.not-ready {
   pointer-events: none;
 }
+
+#results-dialog {
+  height: 500px;
+  width: 400px;
+  left: 50%;
+  margin-left: -200px;
+  top: 50%;
+  margin-top: -250px;
+}
+
+th {
+  font-weight: normal;
+}
+
+.round-ended {
+  #app-area {
+    filter:  blur(5px) grayscale(1);
+    pointer-events: none;
+  }
+
+  #results-dialog {
+    display: block;
+  }
+}
