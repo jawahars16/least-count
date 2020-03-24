@@ -28,6 +28,7 @@ class App extends Component {
         this.userAllowed = this.userAllowed.bind(this);
         this.declareGame = this.declareGame.bind(this);
         this.nextRound = this.nextRound.bind(this);
+        this.endGame = this.endGame.bind(this);
 
         this.state = {
             users: [],
@@ -135,6 +136,10 @@ class App extends Component {
         this.gameObj.start();
     }
 
+    endGame() {
+        this.gameObj.endGame();
+    }
+
     render() {
         if (this.state.error) {
             return (<div className="w-full bg-green-900 h-10" id='top-nav'>
@@ -156,7 +161,7 @@ class App extends Component {
             <div className={this.state.roundEnded ? 'round-ended' : ''}>
                 <div className='flex mb-4 flex-col' id='app-area'>
                     <div className="w-full bg-green-900 h-10 flex justify-between" id='top-nav'>
-                        <div className='text-white text-left p-2'>Least Count (Beta)</div>
+                        <div className='text-white text-left flex-1 p-2'>Least Count (Beta)</div>
                         <div className='text-white p-2 text-right'>
                             Hi {this.state.currentUser?.username.toUpperCase()}
                         </div>
@@ -178,17 +183,20 @@ class App extends Component {
                                 currentUser={this.state.currentUser}
                                 users={this.state.users}/>
                             <ActionPanel
+                                hasGameStarted={this.state.isActive}
                                 canPlay={canPlay}
                                 users={this.state.users}
                                 showDrawBtn={this.state.showDrawBtn}
                                 showPlayBtn={this.state.showPlayBtn}
                                 onDeclare={this.declareGame}
+                                onEndGame={this.endGame}
                                 onPlayCard={this.onPlayCard}
                                 onDrawCard={this.onDrawCard}/>
                         </div>
                     </div>
                 </div>
                 <GameResults
+                    onEndGame={this.endGame}
                     onNextRound={this.nextRound}
                     gameResult={this.state.gameResult}
                     users={this.state.users}/>

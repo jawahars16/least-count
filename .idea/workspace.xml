@@ -6,7 +6,8 @@
       <change beforePath="$PROJECT_DIR$/server/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/game.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/action-panel/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/action-panel/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/user-list/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user-list/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/game-area/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/game-area/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/game.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/game.spec.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/network.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/network.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/styles/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/app.scss" afterDir="false" />
@@ -36,7 +37,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="yarn" />
-    <property name="settings.editor.selected.configurable" value="JavaScript.Libraries" />
+    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.ruby.settings.RubyActiveModuleSdkConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -58,7 +59,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Node.js.app.js">
+  <component name="RunManager" selected="Jest.check for set - one joker">
     <configuration name="check for set - false sequence with joker in between" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
@@ -72,7 +73,7 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="check for set - sequence unsorted" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+    <configuration name="check for set - one joker" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
       <jest-package value="$PROJECT_DIR$/node_modules/react-scripts" />
@@ -81,7 +82,7 @@
       <scope-kind value="TEST" />
       <test-file value="$PROJECT_DIR$/src/game/game.spec.js" />
       <test-names>
-        <test-name value="check for set - sequence unsorted" />
+        <test-name value="check for set - one joker" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -116,11 +117,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Jest.check for set - one joker" />
+        <item itemvalue="Jest.check for set - false sequence with joker in between" />
         <item itemvalue="Node.js.app.js" />
         <item itemvalue="Jest.check for set - sequence with 2 jokers in between" />
-        <item itemvalue="Jest.check for set - false sequence with joker in between" />
         <item itemvalue="Jest.check for set - sequence with joker in between" />
-        <item itemvalue="Jest.check for set - sequence unsorted" />
       </list>
     </recent_temporary>
   </component>
@@ -136,7 +137,8 @@
       <updated>1584758124397</updated>
       <workItem from="1584758125524" duration="71610000" />
       <workItem from="1584932828431" duration="5383000" />
-      <workItem from="1584948497012" duration="21369000" />
+      <workItem from="1584948497012" duration="22109000" />
+      <workItem from="1585043673609" duration="5059000" />
     </task>
     <servers />
   </component>

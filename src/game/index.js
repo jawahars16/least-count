@@ -41,6 +41,10 @@ function game(network) {
         network.broadcastGameState(state);
     }
 
+    function endGame() {
+        network.broadcastEndGame(state);
+    }
+
     function declare() {
         calculatePoints(state);
         network.broadcastDeclare(state);
@@ -101,6 +105,10 @@ function game(network) {
     function checkForSet(set, jokerValue) {
         const cardsWithoutJoker = set.filter(card => card.suit !== 4 && card.rank !== jokerValue);
 
+        if(cardsWithoutJoker.length <= 0) {
+            return true;
+        }
+
         // Check for sequence set.
         if (new Set(cardsWithoutJoker.map(c => c.rank)).size <= 1) {
             return true;
@@ -121,6 +129,11 @@ function game(network) {
     }
 
     function checkForMatchingCardsWithPreviousPlayedDeck(cardsWithoutJoker, prevPlayedCardsWithoutJoker) {
+
+        if(cardsWithoutJoker.length <= 0) {
+            return true;
+        }
+
         const cardsWithoutJokerRanks = cardsWithoutJoker.map(c => c.rank);
         const prevPlayedCardsWithoutJokerRanks = prevPlayedCardsWithoutJoker.map(c => c.rank);
 
@@ -211,7 +224,8 @@ function game(network) {
         play,
         draw,
         checkForSet,
-        declare
+        declare,
+        endGame
     }
 }
 

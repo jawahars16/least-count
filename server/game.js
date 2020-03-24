@@ -19,6 +19,7 @@ function game(io) {
         client.on('new-user', data => onUserJoined(data, client));
         client.on('game-state', onGameStateUpdatedFromClient);
         client.on('declare', onGameDeclare);
+        client.on('game-end', onEndGame);
         client.on('disconnect', onDisconnect);
 
         if (state.deck.length > 0) {
@@ -52,7 +53,7 @@ function game(io) {
             state.previousPlayer = state.activePlayer && state.activePlayer.toString();
             state.activePlayer = nextPlayer.id;
             console.log(`Active player - ${state.activePlayer}`);
-            console.log(`Previous player - ${state.previousPLayer}`);
+            console.log(`Previous player - ${state.previousPlayer}`);
         }
     }
 
@@ -87,8 +88,6 @@ function game(io) {
         const activePlayer = state.users.find(u => u.id === state.activePlayer);
         const activePlayerPoints = activePlayer.points;
         const playersWithLessPoints = state.users.filter(user => user.id !== activePlayer.id && user.points <= activePlayerPoints);
-        console.log(activePlayerPoints)
-        console.log(playersWithLessPoints)
         let gameResult = 'Game ended';
 
         if (playersWithLessPoints.length > 0) {
@@ -108,6 +107,23 @@ function game(io) {
         state.users.sort((a, b) => a.score - b.score);
         state.gameResult = gameResult;
         broadCastRoundEnd();
+    }
+
+    function onEndGame(stateObj) {
+        state = JSON.parse(JSON.stringify(stateObj));
+        state.users.forEach(user => {
+            user.score = 0;
+            user.points = 0;
+            user.totalScore = 0;
+            user.hand = [];
+        });
+        state.isActive = false;
+        state.activePlayDeck = [];
+        state.previousPlayDeck = [];
+        state.deck = [];
+        state.activePlayer = null;
+        state.previousPlayer = null;
+        broadCastGameState();
     }
 
     function broadCastGameState() {

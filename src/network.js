@@ -30,11 +30,16 @@ function network() {
         socket.emit('declare', state)
     }
 
+    function broadcastEndGame(state) {
+        socket.emit('game-end', state)
+    }
+
     return {
         initialize,
         broadcastGameState,
         broadCastNewUser,
-        broadcastDeclare
+        broadcastDeclare,
+        broadcastEndGame
     }
 }
 

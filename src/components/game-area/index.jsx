@@ -73,7 +73,7 @@ class GameArea extends Component {
                         <div className='flex-1 relative' id='joker'/>
                     </div>
                 </div>
-                <hr/>
+                <hr className='mx-5 opacity-50' />
                 <div className='flex flex-row items-center'>
                     <div className='' id='hand'/>
                 </div>

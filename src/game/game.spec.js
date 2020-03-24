@@ -112,6 +112,14 @@ test('check for set - same number sequence with all jokers', function () {
     expect(isSet).toBeTruthy();
 });
 
+test('check for set - one joker', function () {
+    gameObj.updateState({...gameState, joker: 9});
+    const isSet = gameObj.checkForSet([
+        {rank: 9, suit: 1}
+    ]);
+    expect(isSet).toBeTruthy();
+});
+
 test('check for set - same number sequence with 2 jokers', function () {
     gameObj.updateState({...gameState, joker: 9});
     const isSet = gameObj.checkForSet([
