@@ -30,6 +30,10 @@ function network() {
         socket.emit('declare', state)
     }
 
+    function broadcastSmoothDeclare(state) {
+        socket.emit('smooth-declare', state)
+    }
+
     function broadcastEndGame(state) {
         socket.emit('game-end', state)
     }
@@ -39,7 +43,8 @@ function network() {
         broadcastGameState,
         broadCastNewUser,
         broadcastDeclare,
-        broadcastEndGame
+        broadcastEndGame,
+        broadcastSmoothDeclare
     }
 }
 

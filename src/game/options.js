@@ -5,7 +5,7 @@ const options = {
     deckContainerId: 'deck',
     handContainerId: 'hand',
     jokerContainerId: 'joker',
-    handCardsLimit: 7
+    handCardsLimit: 1
 };
 
 export default options;

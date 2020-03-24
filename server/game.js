@@ -19,6 +19,7 @@ function game(io) {
         client.on('new-user', data => onUserJoined(data, client));
         client.on('game-state', onGameStateUpdatedFromClient);
         client.on('declare', onGameDeclare);
+        client.on('smooth-declare', onSmoothDeclare);
         client.on('game-end', onEndGame);
         client.on('disconnect', onDisconnect);
 
@@ -82,6 +83,21 @@ function game(io) {
         broadCastGameState();
     }
 
+    function onSmoothDeclare(stateObj) {
+        state = JSON.parse(JSON.stringify(stateObj));
+
+        const activePlayer = state.users.find(u => u.id === state.activePlayer);
+        activePlayer.points = 0;
+        let gameResult = `${activePlayer.username} finished the game. 😎`;
+
+        state.users.forEach(user => user.score = user.points);
+        state.users.forEach(user => user.totalScore = user.totalScore + user.score);
+        state.users.sort((a, b) => a.score - b.score);
+        console.log(state);
+        state.gameResult = gameResult;
+        broadCastRoundEnd();
+    }
+
     function onGameDeclare(stateObj) {
         state = JSON.parse(JSON.stringify(stateObj));
 
@@ -103,7 +119,7 @@ function game(io) {
             gameResult = `🎉 ${activePlayer.username} declared and won. 🎉`
         }
 
-        state.users.forEach(user => user.totalScore = user.totalScore || 0 + user.score)
+        state.users.forEach(user => user.totalScore = user.totalScore || 0 + user.score);
         state.users.sort((a, b) => a.score - b.score);
         state.gameResult = gameResult;
         broadCastRoundEnd();

@@ -22,7 +22,7 @@ class ActionPanel extends Component {
                     </button>
                     <button className='m-2 mb-3 rounded bg-red-800 text-white p-1 px-5 hover:bg-red-900'
                             onClick={this.props.onEndGame}>
-                        Quit Game
+                        ☠️  Quit Game
                     </button>
                 </div>
             </div>

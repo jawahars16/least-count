@@ -27,6 +27,7 @@ function game(network) {
         newState.previousPlayer = null;
         network.broadcastGameState(state);
         deck = cards.newDeck(true);
+        debugger;
         let index = 0;
         newState.users.forEach(user => {
             user.hand = deck.cards.slice(index, index + options.handCardsLimit).map(c => c.i);
@@ -50,6 +51,11 @@ function game(network) {
         network.broadcastDeclare(state);
     }
 
+    function smoothDeclare() {
+        calculatePoints(state);
+        network.broadcastSmoothDeclare(state);
+    }
+
     function registerUser(user) {
         network.broadCastNewUser(user);
     }
@@ -61,7 +67,11 @@ function game(network) {
             if (user.hand && user.hand.length > 0) {
                 const userHandCards = cards.getCardObjects(user.hand);
                 const cardsWithoutJoker = userHandCards.filter(card => card.suit !== 4 && card.rank !== jokerValue);
-                user.points = cardsWithoutJoker.map(c => c.rank > 10 ? 10 : c.rank).reduce((c1, c2) => c1 + c2);
+                if (cardsWithoutJoker.length <= 0) {
+                    user.points = 0;
+                } else {
+                    user.points = cardsWithoutJoker.map(c => c.rank > 10 ? 10 : c.rank).reduce((c1, c2) => c1 + c2);
+                }
             }
         });
     }
@@ -105,7 +115,7 @@ function game(network) {
     function checkForSet(set, jokerValue) {
         const cardsWithoutJoker = set.filter(card => card.suit !== 4 && card.rank !== jokerValue);
 
-        if(cardsWithoutJoker.length <= 0) {
+        if (cardsWithoutJoker.length <= 0) {
             return true;
         }
 
@@ -130,7 +140,7 @@ function game(network) {
 
     function checkForMatchingCardsWithPreviousPlayedDeck(cardsWithoutJoker, prevPlayedCardsWithoutJoker) {
 
-        if(cardsWithoutJoker.length <= 0) {
+        if (cardsWithoutJoker.length <= 0) {
             return true;
         }
 
@@ -178,14 +188,17 @@ function game(network) {
 
         currentUser.hand = currentUser.hand.filter(c => !newState.activePlayDeck.includes(c));
 
-        updateState(newState);
-        network.broadcastGameState(state);
+        if (currentUser.hand.length > 0) {
+            updateState(newState);
+            network.broadcastGameState(state);
+        } else {
+            smoothDeclare();
+        }
     }
 
     function draw(currentUserId) {
         const drawableCard = cards.getDrawableCard();
-        console.log(drawableCard);
-        if (!drawableCard) {
+        if (drawableCard === undefined) {
             return;
         }
 
@@ -225,7 +238,8 @@ function game(network) {
         draw,
         checkForSet,
         declare,
-        endGame
+        endGame,
+        smoothDeclare
     }
 }
 

@@ -141,13 +141,19 @@ class App extends Component {
     }
 
     render() {
+
+        // if (window.innerWidth) {
+        //     return (<div className="w-full h-10">
+        //         <div className='text-white p-2'>
+        //             Server not found. Trying to connect...
+        //         </div>
+        //     </div>);
+        // }
+
         if (this.state.error) {
             return (<div className="w-full bg-green-900 h-10" id='top-nav'>
                 <div className='text-white p-2'>
                     Server not found. Trying to connect...
-                </div>
-                <div className='flex h-screen w-full'>
-                    {this.state.error}
                 </div>
             </div>);
         }
@@ -165,6 +171,10 @@ class App extends Component {
                         <div className='text-white p-2 text-right'>
                             Hi {this.state.currentUser?.username.toUpperCase()}
                         </div>
+                        <button className='m-2 mb-3 rounded-full w-5 text-white'
+                                onClick={this.endGame}>
+                            ☠️
+                        </button>
                     </div>
                     <div className='flex h-screen w-full'>
                         <GameArea hasGameStarted={this.state.isActive}

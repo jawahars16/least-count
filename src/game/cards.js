@@ -43,7 +43,7 @@ function cards() {
 
     function mountHandCards(deck, state, currentUserId) {
 
-        const currentUserHand = state.users.find(u => currentUserId === u.id).hand;
+        const currentUserHand = state.users.find(u => currentUserId === u.id)?.hand;
         if (!currentUserHand || currentUserHand.length <= 0) {
             return;
         }
@@ -106,10 +106,14 @@ function cards() {
     }
 
     function newDeck(shuffle) {
-        deck = Deck(true);
+        const deck1 = Deck(true);
+        const deck2 = Deck(true);
         if (shuffle) {
-            deck.shuffle();
+            deck1.shuffle();
+            deck2.shuffle();
         }
+
+        deck = {cards: [...deck1.cards, ...deck2.cards.map(c => ({...c, i: c.i + 55}))]};
         return deck;
     }
 
@@ -122,6 +126,7 @@ function cards() {
     }
 
     function getCardObjects(ids) {
+        debugger;
         return deck.cards.filter(card => ids.includes(card.i));
     }
 

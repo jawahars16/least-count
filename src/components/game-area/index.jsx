@@ -54,6 +54,10 @@ class GameArea extends Component {
             previousPlayMessage = `${previousUserName} played below card(s)`
         }
 
+        const userAllowed = this.props.users.length > 0
+            && this.props.currentUser != null
+            && this.props.users.find(user => user.id === this.props.currentUser.id) !== undefined;
+
         return (
             <div
                 className={`bg-green-600 w-4/5 flex flex-col h-screen justify-between content-between 
@@ -73,9 +77,12 @@ class GameArea extends Component {
                         <div className='flex-1 relative' id='joker'/>
                     </div>
                 </div>
-                <hr className='mx-5 opacity-50' />
+                <hr className='mx-5 opacity-50'/>
                 <div className='flex flex-row items-center'>
                     <div className='' id='hand'/>
+                    <div className='text-white'>
+                        {!userAllowed ? 'Game already started. You cannot play. But you can watch. 😎' : ''}
+                    </div>
                 </div>
             </div>
         );
