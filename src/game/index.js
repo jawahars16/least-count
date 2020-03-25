@@ -25,6 +25,7 @@ function game(network) {
         newState.isActive = true;
         newState.activePlayer = null;
         newState.previousPlayer = null;
+        newState.joker = null;
         network.broadcastGameState(state);
         deck = cards.newDeck(true);
         debugger;

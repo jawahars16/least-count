@@ -63,18 +63,18 @@ class GameArea extends Component {
                 className={`bg-green-600 w-4/5 flex flex-col h-screen justify-between content-between 
                 ${this.props.canPlay ? 'ready' : 'not-ready'}`}
                 id='game-area'>
-                <div className='flex flex-1'>
-                    <div className='w-4/5 flex flex-col ml-5'>
+                <div className='flex flex-1 justify-between'>
+                    <div className='w-3/4 flex flex-col ml-5'>
                         <div className='mt-3 text-white'>{previousPlayMessage}</div>
                         <div className='w-full flex flex-1 flex-row items-center' id='prev-play-area'/>
                         <div className='mt-3 text-white'>{playAreaMessage}</div>
                         <div className='w-full flex flex-1 flex-row items-center' id='play-area'/>
                     </div>
-                    <div className='w-1/5 flex flex-col'>
+                    <div className='w-1/4 flex flex-col'>
                         <div className='mt-3 text-white text-center'>Deck</div>
                         <div className='flex-1 relative' id='deck'/>
                         <div className='mt-3 text-white text-center'>Joker</div>
-                        <div className='flex-1 relative' id='joker'/>
+                        <div className='flex-1 relative ml-3' id='joker'/>
                     </div>
                 </div>
                 <hr className='mx-5 opacity-50'/>

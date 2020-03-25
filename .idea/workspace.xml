@@ -3,7 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="3bff18a9-890e-4716-a29a-a5d5c462b792" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/user-form/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user-form/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/game.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/game.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/action-panel/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/action-panel/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/game-area/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/game-area/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/game-results/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/game-results/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/cards.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/cards.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/app.scss" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -132,7 +139,8 @@
       <workItem from="1584932828431" duration="5383000" />
       <workItem from="1584948497012" duration="22109000" />
       <workItem from="1585043673609" duration="9778000" />
-      <workItem from="1585127073167" duration="256000" />
+      <workItem from="1585127073167" duration="808000" />
+      <workItem from="1585149207466" duration="2493000" />
     </task>
     <servers />
   </component>

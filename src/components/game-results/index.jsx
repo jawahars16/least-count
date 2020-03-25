@@ -3,8 +3,8 @@ import React, {Component} from 'react';
 class GameResults extends Component {
     render() {
         return (
-            <div className='absolute bg-gray-100 w-10 rounded-lg shadow-2xl flex flex-col hidden' id='results-dialog'>
-                <div className='text-white bg-blue-800 p-3 rounded-t-lg flex justify-between'>
+            <div className='absolute bg-gray-100 rounded-lg shadow-2xl flex flex-col hidden' id='results-dialog'>
+                <div className='text-white bg-blue-800 p-3 rounded-t-lg justify-between'>
                     <div>Game Results</div>
                 </div>
                 <div className='p-3 text-black overflow-auto flex-1'>

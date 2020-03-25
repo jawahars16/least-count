@@ -118,12 +118,12 @@ button {
 }
 
 #results-dialog {
-  height: 500px;
-  width: 400px;
+  height: 600px;
+  width: 600px;
   left: 50%;
-  margin-left: -200px;
+  margin-left: -300px;
   top: 50%;
-  margin-top: -250px;
+  margin-top: -300px;
 }
 
 th {
@@ -132,7 +132,7 @@ th {
 
 .round-ended {
   #app-area {
-    filter:  blur(5px) grayscale(1);
+    filter:  blur(2px) grayscale(1);
     pointer-events: none;
   }
 

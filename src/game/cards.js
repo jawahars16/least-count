@@ -5,6 +5,7 @@ import options from "./options";
 function cards() {
     let deck;
 
+    let jokerCard;
     let handCards;
     let drawableCard;
     let deckCards;
@@ -22,7 +23,9 @@ function cards() {
     }
 
     function mountCard(card, container) {
-        card.mount(document.getElementById(container));
+        if (card) {
+            card.mount(document.getElementById(container));
+        }
     }
 
     function unmountCards(cards) {
@@ -34,11 +37,18 @@ function cards() {
         }
     }
 
+    function unmountCard(card) {
+        if (card) {
+            card.unmount();
+        }
+    }
+
     function unmountAllCards() {
         unmountCards(handCards);
         unmountCards(previousPlayerCards);
         unmountCards(deckCards);
         unmountCards(activeCards);
+        unmountCard(jokerCard);
     }
 
     function mountHandCards(deck, state, currentUserId) {
@@ -71,7 +81,7 @@ function cards() {
     }
 
     function mountJoker(deck, state) {
-        const jokerCard = deck.cards.find(c => c.i === state.joker);
+        jokerCard = deck.cards.find(c => c.i === state.joker);
         jokerCard.setSide('front');
         mountCard(jokerCard, options.jokerContainerId);
     }

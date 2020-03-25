@@ -92,8 +92,6 @@ function game(io) {
 
         state.users.forEach(user => user.score = user.points);
         state.users.forEach(user => user.totalScore = user.totalScore + user.score);
-        state.users.sort((a, b) => a.score - b.score);
-        console.log(state);
         state.gameResult = gameResult;
         broadCastRoundEnd();
     }
@@ -103,7 +101,10 @@ function game(io) {
 
         const activePlayer = state.users.find(u => u.id === state.activePlayer);
         const activePlayerPoints = activePlayer.points;
-        const playersWithLessPoints = state.users.filter(user => user.id !== activePlayer.id && user.points <= activePlayerPoints);
+        let playersWithLessPoints = state.users.filter(user => user.id !== activePlayer.id && user.points <= activePlayerPoints);
+        const lesserPoints = Math.min(...playersWithLessPoints.map(p => p.points));
+        playersWithLessPoints = playersWithLessPoints.filter(p => p.points === lesserPoints);
+
         let gameResult = 'Game ended';
 
         if (playersWithLessPoints.length > 0) {
@@ -119,8 +120,7 @@ function game(io) {
             gameResult = `🎉 ${activePlayer.username} declared and won. 🎉`
         }
 
-        state.users.forEach(user => user.totalScore = user.totalScore || 0 + user.score);
-        state.users.sort((a, b) => a.score - b.score);
+        state.users.forEach(user => user.totalScore = user.totalScore + user.score);
         state.gameResult = gameResult;
         broadCastRoundEnd();
     }
