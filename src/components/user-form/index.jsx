@@ -12,18 +12,21 @@ class UserForm extends Component {
 
     join() {
         const username = this.username.current.value;
-        this.props.joinGame(username, uuidv1());
+        if(username && username.length > 0) {
+            this.props.joinGame(username, uuidv1());
+        }
     }
 
     render() {
         return (
             <div className='flex justify-center'>
-                <div>
-                    <div className='bg-blue-700 p-2 flex flex-col shadow-xl mt-10'>
-                        <div className='m-1 text-white'>Username</div>
+                <div className=' mt-10'>
+                    <div className='text-center text-white bg-blue-800 p-3 text-2xl'>🎲 Least Count 🎲</div>
+                    <div className='bg-blue-700 p-2 flex flex-col shadow-xl'>
+                        <div className='m-1 text-white'>Name</div>
                         <input name='name' id='username' className='m-1' ref={this.username}/>
-                        <div className='m-1 text-white'>Room</div>
-                        <input name='room' id='room' className='m-1'/>
+                        <div className='m-1 text-white hidden'>Room</div>
+                        <input name='room' id='room' className='m-1 hidden'/>
                         <button className='m-1 bg-orange-700 text-white mt-3'
                                 onClick={this.join}>Join
                         </button>
