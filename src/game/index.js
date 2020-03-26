@@ -215,6 +215,13 @@ function game(network) {
         network.broadcastGameState(state);
     }
 
+    function leave(currentUserId) {
+        let newState = clone(state);
+        newState.users = newState.users.filter(u => u.id !== currentUserId);
+        updateState(newState);
+        network.broadcastGameState(state);
+    }
+
     function render(currentUserId) {
         cards.unmountAllCards();
 
@@ -240,7 +247,8 @@ function game(network) {
         checkForSet,
         declare,
         endGame,
-        smoothDeclare
+        smoothDeclare,
+        leave
     }
 }
 

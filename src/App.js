@@ -29,6 +29,7 @@ class App extends Component {
         this.declareGame = this.declareGame.bind(this);
         this.nextRound = this.nextRound.bind(this);
         this.endGame = this.endGame.bind(this);
+        this.leaveGame = this.leaveGame.bind(this);
 
         this.state = {
             users: [],
@@ -117,7 +118,7 @@ class App extends Component {
             activePlayer: state.activePlayer,
             previousPlayer: state.previousPlayer
         });
-        if (state.deck.length > 0) {
+        if (state.deck.length > 0 && this.state.currentUser) {
             this.gameObj.render(this.state.currentUser.id);
         }
     }
@@ -138,6 +139,15 @@ class App extends Component {
 
     endGame() {
         this.gameObj.endGame();
+    }
+
+    leaveGame() {
+        localStorage.removeItem('username');
+        localStorage.removeItem('userid');
+        this.setState({
+            currentUser: null
+        });
+        this.gameObj.leave(this.state.currentUser.id);
     }
 
     render() {
@@ -189,6 +199,7 @@ class App extends Component {
                                 onDeclare={this.declareGame}
                                 onEndGame={this.endGame}
                                 onPlayCard={this.onPlayCard}
+                                onLeaveGame={this.leaveGame}
                                 onDrawCard={this.onDrawCard}/>
                         </div>
                     </div>

@@ -26,6 +26,10 @@ class ActionPanel extends Component {
                         onClick={this.props.onEndGame}>
                     ☠️ Quit Game
                 </button>
+                <button className='m-2 mb-3 rounded bg-orange-800 text-white p-1 px-5 hover:bg-red-900'
+                        onClick={this.props.onLeaveGame}>
+                    Leave Game
+                </button>
             </div>
         );
     }
