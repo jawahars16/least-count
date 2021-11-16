@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^9.7.4",
-    "aws-sdk": "^2.643.0",
+    "aws-sdk": "^2.814.0",
     "postcss-cli": "^7.1.0",
     "tailwindcss": "^1.2.0"
   }
